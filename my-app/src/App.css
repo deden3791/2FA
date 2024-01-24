@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -34,5 +34,53 @@
   }
   to {
     transform: rotate(360deg);
+  }
+} */
+
+
+.passwordScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; 
+  background-color: #16161d; 
+  color: white;
+}
+
+.passwordChecklist {
+  margin: 20px;
+}
+.passwordForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  margin: 50px;
+}
+
+label {
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+input {
+  padding: 10px;
+  margin: 5px;
+}
+
+button {
+  background-color: white;
+  color: black;
+  font-size: 20px;
+  padding: 10px 60px;
+  border-radius: 5px;
+  margin: 10px 0px;
+  cursor: pointer;
+  
+  &:disabled {
+    color: grey;
+    opacity: 0.5;
+    cursor: default;
   }
 }
