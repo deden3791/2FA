@@ -11,7 +11,7 @@ export const PasswordScreen = () => {
     <div>
       {show2fa ? (
         <ChessPassword
-          //problemNo={1}
+          problemNo={1}
         />
       ) : (
         <PasswordForm 

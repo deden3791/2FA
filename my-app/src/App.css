@@ -46,6 +46,10 @@
   height: 100vh; 
   background-color: #16161d; 
   color: white;
+
+  .turnLabel {
+    color: white;
+  }
 }
 
 .passwordChecklist {

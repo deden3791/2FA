@@ -8,20 +8,20 @@ interface ChessPasswordProps {
 
 export const ChessPassword = ( {problemNo }: ChessPasswordProps) => {
   const [game, setGame] = useState(new Chess());
-  const [startingPosition, setStartingPosition] = useState<string>(game.fen());
   const [guess, setGuess] = useState<string>("Please check answer");
-  console.log(startingPosition, game.fen())
 
-  // useEffect(() => {
-  //   switch(problemNo) {
-  //     case 0:
-  //       setStartingPosition(game.fen());
-  //       break;
-  //     case 1:
-  //       setStartingPosition('rnb1kbnr/pppp1ppp/8/4p3/5PPq/8/PPPPP2P/RNBQKBNR w KQkq - 1 3');
-  //       break;
-  //   }
-  // }, [problemNo]);
+  useEffect(() => {
+    let newPos = '';
+    switch(problemNo) {
+      case 1:
+        newPos = 'rnb1kbnr/pppp1ppp/8/4p3/5PPq/8/PPPPP2P/RNBQKBNR w KQkq - 1 3';
+        break;
+      default:
+        newPos = game.fen();
+        break;
+    }
+    setGame(new Chess(newPos));
+  }, [problemNo]);
 
   const checkAnswer = (): void => {
     game.isCheckmate() ? setGuess("Correct") : setGuess("Incorrect");
@@ -30,6 +30,7 @@ export const ChessPassword = ( {problemNo }: ChessPasswordProps) => {
   const makeAMove = (move: any): Move => {
     const gameCopy: Chess = new Chess(game.fen());
     const result = gameCopy.move(move);
+    console.log(result)
     setGame(gameCopy);
     return result; // null if the move was illegal, the move object if the move was legal
   }
@@ -59,6 +60,7 @@ export const ChessPassword = ( {problemNo }: ChessPasswordProps) => {
         position={game.fen()}
         onPieceDrop={onDrop} 
       />
+      <label className="turnLabel">{game.fen()}</label>
 
     <button onClick={checkAnswer}>Check Answer</button>
     </div>
