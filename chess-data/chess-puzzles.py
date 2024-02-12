@@ -6,7 +6,7 @@ def load_puzzles():
 
 def export_sample(df):
     random_puzzles = df[["PuzzleId", "FEN", "Moves"]].sample(n=20)
-    random_puzzles.to_json('chess_puzzles.json', orient='records')
+    random_puzzles.to_json('../my-app/src/data/chess-puzzles.json', orient='records')
 
 if __name__ == "__main__":
     df = load_puzzles()
