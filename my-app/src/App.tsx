@@ -1,6 +1,7 @@
 import { ChessSceen } from "./screens/ChessScreen";
 import { PasswordScreen } from "./screens/PasswordScreen";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
+import "./App.css";
 
 function App() {
   return (
