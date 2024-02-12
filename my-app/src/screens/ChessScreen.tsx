@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Chess, Move } from "chess.js";
 import { Chessboard } from "react-chessboard";
 import puzzles from "../data/chess-puzzles.json";
+import { useNavigate } from "react-router-dom";
 
 interface puzzle {
   PuzzleId: string;
@@ -10,17 +11,24 @@ interface puzzle {
 }
 
 export const ChessSceen = () => {
+  const navigate = useNavigate();
   const [puzzle, setPuzzle] = useState<puzzle | null>(null);
   const [game, setGame] = useState(new Chess());
+  const [attempts, setAttempts] = useState(0);
 
   useEffect(() => {
+    if (attempts > 3) navigate("/unauthenticated");
+    getRandomPuzzle();
+  }, [attempts, navigate]);
+
+  const getRandomPuzzle = () => {
     let chosenPuzzle = puzzles[Math.floor(Math.random() * puzzles.length)];
     let puzzleMoves = chosenPuzzle.Moves.split(" ");
     const gameInstance = new Chess(chosenPuzzle.FEN);
     gameInstance.move(puzzleMoves[0]);
     setGame(gameInstance);
     setPuzzle({ ...chosenPuzzle, Moves: puzzleMoves });
-  }, []);
+  };
 
   const makeAMove = (move: any): Move => {
     const gameCopy: Chess = new Chess(game.fen());
@@ -36,12 +44,13 @@ export const ChessSceen = () => {
       if (!move) return false;
 
       if (moveMade === puzzle?.Moves[1]) {
-        console.log("This is the last move in the puzzle");
+        navigate("/authenticated");
         return true;
       }
     } catch (err) {
       console.log(err);
     } finally {
+      setAttempts((prev) => prev + 1);
       return false;
     }
   };
