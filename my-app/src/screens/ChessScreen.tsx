@@ -3,6 +3,7 @@ import { Chess, Move } from "chess.js";
 import { Chessboard } from "react-chessboard";
 import puzzles from "../data/chess-puzzles.json";
 import { useNavigate } from "react-router-dom";
+import Timer from "../components/Timer";
 
 interface puzzle {
   PuzzleId: string;
@@ -57,12 +58,9 @@ export const ChessSceen = () => {
 
   return (
     <div className="passwordScreen">
-      <Chessboard
-        customBoardStyle={{ padding: 100 }}
-        boardWidth={600}
-        position={game.fen()}
-        onPieceDrop={onDrop}
-      />
+      {/* CSS on chessboard is not working, it is not centering */}
+      <Chessboard boardWidth={600} position={game.fen()} onPieceDrop={onDrop} />
+      <Timer stopFunction={() => setAttempts((prev) => prev + 1)} />
     </div>
   );
 };
