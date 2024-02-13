@@ -59,7 +59,13 @@ export const ChessSceen = () => {
   return (
     <div className="passwordScreen">
       {/* CSS on chessboard is not working, it is not centering */}
-      <Chessboard boardWidth={600} position={game.fen()} onPieceDrop={onDrop} />
+      <div>
+        <Chessboard
+          boardWidth={600}
+          position={game.fen()}
+          onPieceDrop={onDrop}
+        />
+      </div>
       <Timer stopFunction={() => setAttempts((prev) => prev + 1)} />
     </div>
   );
