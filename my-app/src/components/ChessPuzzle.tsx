@@ -3,7 +3,7 @@ import { Chess, Move } from "chess.js";
 import { Chessboard } from "react-chessboard";
 import puzzles from "../data/chess-puzzles.json";
 import { useNavigate } from "react-router-dom";
-import Timer from "../components/Timer";
+import Timer from "./Timer";
 
 interface puzzle {
   PuzzleId: string;
@@ -11,7 +11,7 @@ interface puzzle {
   Moves: string[];
 }
 
-export const ChessSceen = () => {
+export const ChessPuzzle = () => {
   const navigate = useNavigate();
   const [puzzle, setPuzzle] = useState<puzzle | null>(null);
   const [game, setGame] = useState(new Chess());

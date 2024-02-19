@@ -16,7 +16,7 @@ export const PasswordForm = () => {
   };
 
   const checkPassword = (): void => {
-    if (passwordCorrect) navigate("/chess");
+    if (passwordCorrect) navigate("/puzzle");
   };
 
   return (
