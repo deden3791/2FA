@@ -1,0 +1,63 @@
+.puzzleScreen {
+  display: flex;
+  background-color: #313639;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+  padding: 20px;
+}
+
+.actionArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  color: white;
+}
+
+.actionArea.endGame {
+  flex-direction: column;
+}
+
+.deckImage {
+  width: 100px; /* Adjust as necessary */
+}
+
+.dealerArea, .playerArea {
+  display: flex;
+  justify-content: center;
+}
+
+.cardImage {
+  margin: 0 10px;
+  transition: transform 1s ease-out;
+}
+.dealerCard {
+  width: 70px;
+  animation: slideDealerCard 1s ease-out;
+}
+.playerCard {
+  width: 120px;
+  animation: slidePlayerCard 1s ease-out;
+}
+
+@keyframes slidePlayerCard {
+  from { transform: translateY(-100px); }
+  to { transform: translateY(0); }
+}
+@keyframes slideDealerCard {
+  from { transform: translateY(100px); }
+  to { transform: translateY(0); }
+}
+
+.dealerCard:hover {
+  transform: translateY(10vh);
+}
+.playerCard:hover {
+  transform: translateY(-10vh);
+}
+
+.drawButton {
+  margin-bottom: 20px;
+}

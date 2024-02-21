@@ -9,7 +9,7 @@ function Timer({ stopFunction }: TimerProps) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const incrementAmount = 10;
+    const incrementAmount = 5;
 
     const interval = setInterval(() => {
       setProgress((prevProgress) => {
