@@ -1,7 +1,7 @@
 import { ChessPuzzle } from "./ChessPuzzle";
 import { AnagramPuzzle } from "./AnagramPuzzle";
-import { BlackjackPuzzle } from "./BlackjackPuzzle";
+import { CardCountingGame } from "./CardCounting";
 import { PasswordForm } from "./PasswordForm";
 import Timer from "./Timer";
 
-export { ChessPuzzle, AnagramPuzzle, BlackjackPuzzle, PasswordForm, Timer };
+export { ChessPuzzle, AnagramPuzzle, CardCountingGame, PasswordForm, Timer };

@@ -1,0 +1,39 @@
+.puzzleScreen {
+  display: flex;
+  background-color: #313639;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+  padding: 20px;
+}
+
+.actionArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  color: white;
+}
+
+.cardArea {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.cardImage {
+  transition: transform 1s ease-out;
+  width: 120px;
+  animation: Card 1s ease-out;
+}
+
+@keyframes Card {
+  from { transform: translateY(100px); }
+  to { transform: translateY(0); }
+}
+
+.cardImage:hover {
+  transform: translateY(10vh);
+}

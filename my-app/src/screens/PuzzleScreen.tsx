@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { ChessPuzzle, AnagramPuzzle, BlackjackPuzzle } from '../components';
+import { ChessPuzzle, AnagramPuzzle, CardCountingGame } from '../components';
 import Dropdown from 'react-dropdown';
 
 
 export const PuzzleScreen = () => {
-  const puzzles = ["Chess", "Anagram", "Blackjack"];
+  const puzzles = ["Chess", "Anagram", "Card Counting"];
   const [puzzle, setPuzzle] = useState<string>(puzzles[0]);
 
   return (
@@ -16,8 +16,8 @@ export const PuzzleScreen = () => {
       {puzzle === "Anagram" && (
         <AnagramPuzzle />
       )}
-      {puzzle === "Blackjack" && (
-        <BlackjackPuzzle />
+      {puzzle === "Card Counting" && (
+        <CardCountingGame />
       )}
     </div>
   );
