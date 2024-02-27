@@ -46,6 +46,7 @@ export const AnagramPuzzle = () => {
   const navigate = useNavigate();
   const [currentWordIndex, setCurrentWordIndex] = useState<number>(0);
   const [anagram, setAnagram] = useState<string>(pickRandomAnagram(words[currentWordIndex].anagrams));
+  const [incorrectAnswers, setIncorrectAnswers] = useState<number>(0);
   const [correctAnswers, setCorrectAnswers] = useState<number>(0);
   const [userGuess, setUserGuess] = useState<string>('');
   const [message, setMessage] = useState<string>('');
@@ -63,6 +64,7 @@ export const AnagramPuzzle = () => {
       setCorrectAnswers(total => total + 1);
       setMessage('Correct! Well done.');
     } else {
+      setIncorrectAnswers(total => total + 1);
       setMessage('Oops! Try again.');
     }
     setUserGuess('');
@@ -73,14 +75,17 @@ export const AnagramPuzzle = () => {
 
   if (correctAnswers >= NO_OF_ANSWERS) {
     navigate('/authenticated');
+  } else if (incorrectAnswers >= NO_OF_ANSWERS) {
+    navigate('/unauthenticated');
   }
 
   return (
     <div className="passwordScreen">
       <h2>Solve the following Anagram:</h2>
       <h3>{anagram}</h3>
-      <h6>Correct Answers: {correctAnswers}</h6>
-      <h6>How many more to pass: {NO_OF_ANSWERS - correctAnswers}</h6>
+      <h5>Get {NO_OF_ANSWERS} correct to pass. Get {NO_OF_ANSWERS} incorrect to be locked out.</h5>
+      <h6>Correct: {correctAnswers}</h6>
+      <h6>Incorrect: {incorrectAnswers}</h6>
 
       <form onSubmit={checkAnswer}>
         <input
