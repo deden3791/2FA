@@ -44,8 +44,8 @@ const NO_OF_ANSWERS = 3;
 
 export const AnagramPuzzle = () => {
   const navigate = useNavigate();
-  const [current, setCurrent] = useState<number>(0);
-  const [anagram, setAnagram] = useState<string>(pickRandomAnagram(words[current].anagrams));
+  const [currentWordIndex, setCurrentWordIndex] = useState<number>(0);
+  const [anagram, setAnagram] = useState<string>(pickRandomAnagram(words[currentWordIndex].anagrams));
   const [correctAnswers, setCorrectAnswers] = useState<number>(0);
   const [userGuess, setUserGuess] = useState<string>('');
   const [message, setMessage] = useState<string>('');
@@ -57,15 +57,18 @@ export const AnagramPuzzle = () => {
 
   const checkAnswer = (e: any): void => {
     e.preventDefault();
-    if (userGuess.toLowerCase() === words[current].word) {
-      setCorrectAnswers(correctAnswers + 1);
+    console.log("CHECKING ANSWER");
+    console.log(userGuess.toLowerCase(), words[currentWordIndex].word)
+    if (userGuess.toLowerCase() === words[currentWordIndex].word) {
+      setCorrectAnswers(total => total + 1);
       setMessage('Correct! Well done.');
     } else {
       setMessage('Oops! Try again.');
     }
     setUserGuess('');
-    setCurrent((current + 1) % words.length);
-    setAnagram(pickRandomAnagram(words[current].anagrams));
+    const nextIndex: number = (currentWordIndex + 1) % words.length;
+    setCurrentWordIndex(nextIndex);
+    setAnagram(pickRandomAnagram(words[nextIndex].anagrams));
   };
 
   if (correctAnswers >= NO_OF_ANSWERS) {
