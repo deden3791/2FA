@@ -72,8 +72,6 @@ export const AnagramPuzzle = () => {
 
   const checkAnswer = (e: any): void => {
     e.preventDefault();
-    console.log("CHECKING ANSWER");
-    console.log(userGuess.toLowerCase(), words[currentWordIndex].word)
     if (userGuess.toLowerCase() === words[currentWordIndex].word) {
       setCorrectAnswers(total => total + 1);
       setMessage('Correct! Well done.');
