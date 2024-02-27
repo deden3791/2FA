@@ -37,3 +37,7 @@
 .cardImage:hover {
   transform: translateY(10vh);
 }
+
+p {
+  color: white;
+}

@@ -48,6 +48,7 @@ export const CardCountingGame = () => {
   const checkGuess = (e: any) => {
     e.preventDefault();
     const actualCount = calculateCardCount(cards);
+    console.log(actualCount);
     if (parseInt(userGuess) === actualCount) {
       setMessage('Correct! Well done.');
       navigate('/authenticated');
