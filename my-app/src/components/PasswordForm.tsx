@@ -19,14 +19,20 @@ export const PasswordForm = () => {
 
   const onFormSubmit = (e: any): void => {
     e.preventDefault();
-    checkPassword()
+    checkPassword();
   };
 
   return (
     <div className="passwordScreen">
-      <label>Chess: <i>{chessPassword}</i></label>
-      <label>Anagram: <i>{anagramPassword}</i></label>
-      <label>Card Counting: <i>{cardPassword}</i></label>
+      <label>
+        Chess: <i>{chessPassword}</i>
+      </label>
+      <label>
+        Anagram: <i>{anagramPassword}</i>
+      </label>
+      <label>
+        Card Counting: <i>{cardPassword}</i>
+      </label>
 
       <form className="passwordForm" onSubmit={onFormSubmit}>
         <label>Enter Password:</label>
@@ -35,7 +41,6 @@ export const PasswordForm = () => {
         <label>{message}</label>
         <button type="submit">Enter</button>
       </form>
-
     </div>
   );
 };

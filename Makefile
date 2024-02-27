@@ -5,3 +5,7 @@ puzzles:
 .PHONY: app
 app:
 	cd my-app && npm start
+
+.PHONY: fmt
+fmt:
+	cd my-app && npx prettier -w .

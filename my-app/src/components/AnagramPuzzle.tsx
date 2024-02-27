@@ -7,7 +7,7 @@ import Timer from "./Timer";
 function generateAnagrams(
   prefix: string,
   str: string,
-  anagrams: string[] = []
+  anagrams: string[] = [],
 ): string[] {
   if (str.length === 1) {
     anagrams.push(prefix + str);
@@ -49,7 +49,7 @@ export const AnagramPuzzle = () => {
   const navigate = useNavigate();
   const [currentWordIndex, setCurrentWordIndex] = useState<number>(0);
   const [anagram, setAnagram] = useState<string>(
-    pickRandomAnagram(words[currentWordIndex].anagrams)
+    pickRandomAnagram(words[currentWordIndex].anagrams),
   );
   const [incorrectAnswers, setIncorrectAnswers] = useState<number>(0);
   const [correctAnswers, setCorrectAnswers] = useState<number>(0);

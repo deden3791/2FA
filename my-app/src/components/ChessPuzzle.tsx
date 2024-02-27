@@ -45,8 +45,8 @@ export const ChessPuzzle = () => {
       pickedLevel === "EASY"
         ? easyPuzzles
         : pickedLevel === "MEDIUM"
-        ? mediumPuzzles
-        : hardPuzzles;
+          ? mediumPuzzles
+          : hardPuzzles;
 
     let chosenPuzzle = puzzles[Math.floor(Math.random() * puzzles.length)];
     let puzzleMoves = chosenPuzzle.Moves.split(" ");

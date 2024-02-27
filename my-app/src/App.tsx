@@ -1,8 +1,13 @@
-import { PasswordScreen, ChessScreen, AnagramScreen, CardCountingScreen, 
-  AuthenticatedScreen, UnauthenticatedScreen } from "./screens";
+import {
+  PasswordScreen,
+  ChessScreen,
+  AnagramScreen,
+  CardCountingScreen,
+  AuthenticatedScreen,
+  UnauthenticatedScreen,
+} from "./screens";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
-
 
 function App() {
   return (

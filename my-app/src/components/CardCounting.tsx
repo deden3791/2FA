@@ -13,8 +13,8 @@ export const CardCountingGame = () => {
   const navigate = useNavigate();
   const deckId = useRef<string | null>(null);
   const [cards, setCards] = useState<Card[]>([]);
-  const [userGuess, setUserGuess] = useState<string>('');
-  const [message, setMessage] = useState<string>('');
+  const [userGuess, setUserGuess] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
 
   useEffect(() => {
     getDeckAndDrawCards();
@@ -22,7 +22,9 @@ export const CardCountingGame = () => {
 
   const getDeckAndDrawCards = async () => {
     // Shuffle a new deck
-    const response = await fetch('https://deckofcardsapi.com/api/deck/new/shuffle/');
+    const response = await fetch(
+      "https://deckofcardsapi.com/api/deck/new/shuffle/",
+    );
     const data = await response.json();
     deckId.current = data.deck_id;
     // Draw number of cards
@@ -31,7 +33,9 @@ export const CardCountingGame = () => {
 
   const drawCards = async (count: number) => {
     if (!deckId.current) return;
-    const response = await fetch(`https://deckofcardsapi.com/api/deck/${deckId.current}/draw/?count=${count}`);
+    const response = await fetch(
+      `https://deckofcardsapi.com/api/deck/${deckId.current}/draw/?count=${count}`,
+    );
     const data = await response.json();
     setCards(data.cards);
   };
@@ -39,8 +43,9 @@ export const CardCountingGame = () => {
   const calculateCardCount = (cards: Card[]): number => {
     return cards.reduce((count, card) => {
       const value = card.value;
-      if (['2', '3', '4', '5', '6'].includes(value)) return count + 1;
-      if (['10', 'JACK', 'QUEEN', 'KING', 'ACE'].includes(value)) return count - 1;
+      if (["2", "3", "4", "5", "6"].includes(value)) return count + 1;
+      if (["10", "JACK", "QUEEN", "KING", "ACE"].includes(value))
+        return count - 1;
       return count;
     }, 0);
   };
@@ -50,19 +55,24 @@ export const CardCountingGame = () => {
     const actualCount = calculateCardCount(cards);
     console.log(actualCount);
     if (parseInt(userGuess) === actualCount) {
-      setMessage('Correct! Well done.');
-      navigate('/authenticated');
+      setMessage("Correct! Well done.");
+      navigate("/authenticated");
     } else {
-      setMessage('Oops! Try again.');
+      setMessage("Oops! Try again.");
     }
-    setUserGuess('');
+    setUserGuess("");
   };
 
   return (
     <div className="puzzleScreen">
       <div className="cardArea">
         {cards.map((card, index) => (
-          <img key={index} src={card.image} alt={`${card.value} of ${card.suit}`} className="cardImage" />
+          <img
+            key={index}
+            src={card.image}
+            alt={`${card.value} of ${card.suit}`}
+            className="cardImage"
+          />
         ))}
       </div>
       <div className="playerArea">

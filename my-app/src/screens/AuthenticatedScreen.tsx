@@ -6,7 +6,7 @@ export const AuthenticatedScreen = () => {
   return (
     <div className="passwordScreen">
       <label>Welcome back!</label>
-      <button onClick={() => navigate('/')}>Go back to home screen</button>
+      <button onClick={() => navigate("/")}>Go back to home screen</button>
     </div>
   );
 };
