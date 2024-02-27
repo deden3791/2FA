@@ -2,28 +2,27 @@ import { useState } from "react";
 import PasswordChecklist from "react-password-checklist";
 import { useNavigate } from "react-router-dom";
 
+const chessPassword = "ilovechess";
+const anagramPassword = "iloveanagrams";
+const cardPassword = "ilovecards";
+
 export const PasswordForm = () => {
   const navigate = useNavigate();
-  const masterPassword = "ilovegroupt";
   const [password, setPassword] = useState<string>("");
-  const [passwordCorrect, setPasswordCorrect] = useState<boolean>(false);
-
-  const updatePasswordCorrect = (
-    isValid: boolean,
-    failedRules: string[]
-  ): void => {
-    isValid ? setPasswordCorrect(true) : setPasswordCorrect(false);
-  };
+  const [message, setMessage] = useState<string>("");
 
   const checkPassword = (): void => {
-    if (passwordCorrect) navigate("/puzzle");
+    if (password === chessPassword) navigate("/chess");
+    else if (password === anagramPassword) navigate("/anagram");
+    else if (password === cardPassword) navigate("/cards");
+    else setMessage("Incorrect password");
   };
 
   return (
     <div className="passwordScreen">
-      <label>
-        Master Password is: <i>{masterPassword}</i>
-      </label>
+      <label>Chess: <i>{chessPassword}</i></label>
+      <label>Anagram: <i>{anagramPassword}</i></label>
+      <label>Card Counting: <i>{cardPassword}</i></label>
 
       <form className="passwordForm">
         <label>Enter Password:</label>
@@ -31,22 +30,15 @@ export const PasswordForm = () => {
 
         <div className="passwordChecklist">
           <PasswordChecklist
-            rules={["match"]}
-            value={masterPassword}
-            valueAgain={password}
-            onChange={(isValid, failedRules) =>
-              updatePasswordCorrect(isValid, failedRules)
-            }
-            messages={{
-              match: "Passwords must match.",
-            }}
+            rules={[]}
+            value={password}
           />
         </div>
       </form>
 
-      <button onClick={() => checkPassword()} disabled={!passwordCorrect}>
-        Enter
-      </button>
+      <label>{message}</label>
+
+      <button onClick={() => checkPassword()}>Enter</button>
     </div>
   );
 };

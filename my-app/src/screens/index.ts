@@ -1,6 +1,12 @@
 import { PasswordScreen } from ".//PasswordScreen";
-import { PuzzleScreen } from "./PuzzleScreen";
+import { ChessScreen } from "./ChessScreen";
+import { AnagramScreen } from "./AnagramScreen";
+import { CardCountingScreen } from "./CardCountingScreen";
 import { AuthenticatedScreen } from "./AuthenticatedScreen";
 import { UnauthenticatedScreen } from "./UnauthenticatedScreen";
 
-export { PasswordScreen, PuzzleScreen, AuthenticatedScreen, UnauthenticatedScreen };
+export { 
+  PasswordScreen, 
+  ChessScreen, AnagramScreen, CardCountingScreen,
+  AuthenticatedScreen, UnauthenticatedScreen 
+};
