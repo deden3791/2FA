@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { generate } from "random-words";
 import { useNavigate } from "react-router-dom";
 import Timer from "./Timer";
@@ -51,6 +51,10 @@ export const AnagramPuzzle = () => {
   const [userGuess, setUserGuess] = useState<string>('');
   const [message, setMessage] = useState<string>('');
 
+  const stopFunction = useCallback(() => {
+    navigate('/unauthenticated');
+  }, [navigate]);
+
   useEffect(() => {
     console.log(words)
   }, []);
@@ -99,7 +103,7 @@ export const AnagramPuzzle = () => {
 
       <p>{message}</p>
 
-      <Timer stopFunction={() => navigate('/unauthenticated')} />
+      <Timer stopFunction={stopFunction} />
     </div>
   );
 }

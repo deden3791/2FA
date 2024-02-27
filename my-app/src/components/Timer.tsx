@@ -1,14 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { ProgressBar } from "react-bootstrap";
 
 interface TimerProps {
   stopFunction: Function;
 }
 
-function Timer({ stopFunction }: TimerProps) {
+const Timer = memo(({ stopFunction }: TimerProps) => {
   const [progress, setProgress] = useState(0);
+  console.log("hi")
 
   useEffect(() => {
+    console.log("timer")
     const incrementAmount = 5;
 
     const interval = setInterval(() => {
@@ -30,6 +32,6 @@ function Timer({ stopFunction }: TimerProps) {
       <ProgressBar variant="success" now={progress} />
     </div>
   );
-}
+});
 
 export default Timer;
