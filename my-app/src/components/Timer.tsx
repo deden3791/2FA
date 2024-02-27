@@ -7,7 +7,6 @@ interface TimerProps {
 
 const Timer = memo(({ stopFunction }: TimerProps) => {
   const [progress, setProgress] = useState(0);
-  console.log("hi")
 
   useEffect(() => {
     console.log("timer")
