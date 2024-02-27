@@ -56,6 +56,7 @@ export const AnagramPuzzle = () => {
 
 
   const checkAnswer = (e: any): void => {
+    e.preventDefault();
     if (userGuess.toLowerCase() === words[current].word) {
       setCorrectAnswers(correctAnswers + 1);
       setMessage('Correct! Well done.');
@@ -78,13 +79,16 @@ export const AnagramPuzzle = () => {
       <h6>Correct Answers: {correctAnswers}</h6>
       <h6>How many more to pass: {NO_OF_ANSWERS - correctAnswers}</h6>
 
-      <input
-        type="text"
-        value={userGuess}
-        onChange={(e) => setUserGuess(e.target.value)}
-        placeholder="Answer here"
-      />
-      <button onClick={checkAnswer} type="submit">Check</button>
+      <form onSubmit={checkAnswer}>
+        <input
+          type="text"
+          value={userGuess}
+          onChange={(e) => setUserGuess(e.target.value)}
+          placeholder="Answer here"
+        />
+        <button type="submit">Check</button>
+      </form>
+
       <p>{message}</p>
 
       <Timer stopFunction={() => navigate('/unauthenticated')} />

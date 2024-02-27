@@ -45,7 +45,8 @@ export const CardCountingGame = () => {
     }, 0);
   };
 
-  const checkGuess = () => {
+  const checkGuess = (e: any) => {
+    e.preventDefault();
     const actualCount = calculateCardCount(cards);
     if (parseInt(userGuess) === actualCount) {
       setMessage('Correct! Well done.');
@@ -64,13 +65,15 @@ export const CardCountingGame = () => {
         ))}
       </div>
       <div className="playerArea">
-        <input
-          type="text"
-          value={userGuess}
-          onChange={(e) => setUserGuess(e.target.value)}
-          placeholder="Enter your count guess"
-        />
-        <button onClick={checkGuess}>Submit Guess</button>
+        <form onSubmit={checkGuess}>
+          <input
+            type="text"
+            value={userGuess}
+            onChange={(e) => setUserGuess(e.target.value)}
+            placeholder="Enter your count guess"
+          />
+          <button>Submit Guess</button>
+        </form>
       </div>
       {message && <p>{message}</p>}
     </div>
