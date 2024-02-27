@@ -3,14 +3,18 @@ import { ProgressBar } from "react-bootstrap";
 
 interface TimerProps {
   stopFunction: Function;
+  resetFlag?: boolean;
 }
 
-const Timer = memo(({ stopFunction }: TimerProps) => {
+const Timer = memo(({ stopFunction, resetFlag }: TimerProps) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    console.log("timer")
-    const incrementAmount = 5;
+    setProgress(0);
+  }, [resetFlag]);
+
+  useEffect(() => {
+    const incrementAmount = 0.5;
 
     const interval = setInterval(() => {
       setProgress((prevProgress) => {
@@ -22,7 +26,7 @@ const Timer = memo(({ stopFunction }: TimerProps) => {
         }
         return newProgress;
       });
-    }, 1000); // Update every 1000 milliseconds (1 second)
+    }, 100);
     return () => clearInterval(interval);
   }, [stopFunction]);
 
