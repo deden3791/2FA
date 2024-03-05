@@ -100,11 +100,10 @@ export const AnagramPuzzle = () => {
   };
 
   const onDifficultySelect = (level: any): void => {
-    console.log(level)
     setDifficulty(level);
     
     // Determine the length of the words based on the selected difficulty
-    let length = 5; // default length
+    let length = 5;
     if (level === "EASY") {
       length = 4;
     } else if (level === "MEDIUM") {
@@ -113,12 +112,10 @@ export const AnagramPuzzle = () => {
       length = 8;
     }
   
-    console.log(length)
     // Regenerate the words list with the new length
     const newWords = generateWords(length);
     console.log(newWords)
     
-    // Update the state with the new words
     setWords(newWords);
     setCurrentWordIndex(0);
     setCorrectAnswers(0);
@@ -126,8 +123,7 @@ export const AnagramPuzzle = () => {
     setMessage("");
     setAnagram(pickRandomAnagram(newWords[0].anagrams));
     
-    // Reset the timer for the new challenge
-    setResetFlag(prevFlag => !prevFlag); // This toggles the reset flag to restart any effects or components that depend on it
+    setResetFlag(prevFlag => !prevFlag); 
   };
   
 

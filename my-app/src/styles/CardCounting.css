@@ -1,12 +1,24 @@
 .puzzleScreen {
   display: flex;
-  background-color: #313639;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  height: 100vh;
-  padding: 20px;
+  height: 80%;
+  padding: 20px; 
 }
+
+.passwordScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  height: 100vh;
+  max-height: 100vh;
+  .turnLabel {
+    color: white;
+  }
+} 
 
 .actionArea {
   display: flex;
@@ -25,13 +37,17 @@
 
 .cardImage {
   transition: transform 1s ease-out;
-  width: 120px;
+  width: 100px;
   animation: Card 1s ease-out;
+}
+
+.description {
+  text-align: center;
 }
 
 @keyframes Card {
   from {
-    transform: translateY(100px);
+    transform: translateY(30px);
   }
   to {
     transform: translateY(0);
@@ -39,7 +55,7 @@
 }
 
 .cardImage:hover {
-  transform: translateY(10vh);
+  transform: translateY(3vh);
 }
 
 p {
