@@ -58,13 +58,6 @@ export const AnagramPuzzle = () => {
   const { startTimer, stopTimer } = useTimer();
 
   useEffect(() => {
-    startTimer();
-    return () => {
-      stopTimer();
-    };
-  }, [startTimer, stopTimer, navigate]);
-
-  useEffect(() => {
     console.log(words);
   }, []);
 

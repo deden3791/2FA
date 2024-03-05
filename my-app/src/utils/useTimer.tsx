@@ -24,7 +24,7 @@ export function useTimer() {
       setElapsedTime(elapsed);
 
       startTimeRef.current = null;
-      console.log(`Elapsed time: ${elapsed}ms`);
+      return elapsed
     }
   }, []);
 

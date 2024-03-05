@@ -6,8 +6,8 @@ import mediumPuzzles from "../data/chess-puzzles-medium.json";
 import hardPuzzles from "../data/chess-puzzles-hard.json";
 import { useNavigate } from "react-router-dom";
 import Timer from "./Timer";
-import Dropdown from 'react-dropdown';
 import { CustomToggleSwitch } from "./CustomToggleSwitch";
+import { CustomDropdown } from "./CustomDropdown";
 import { useTimer } from "../utils/useTimer";
 
 interface puzzle {
@@ -24,7 +24,8 @@ const NO_OF_ATTEMPTS = 3;
 export const ChessPuzzle = () => {
   const navigate = useNavigate();
   const { isTimerOn, setIsTimerOn,
-    countdownDuration, updateCountdownDuration } = useTimer();
+    countdownDuration, updateCountdownDuration,
+    startTimer, stopTimer } = useTimer();
 
   const [resetFlag, setResetFlag] = useState<boolean>(false);
   const [puzzle, setPuzzle] = useState<puzzle | null>(null);
@@ -33,9 +34,15 @@ export const ChessPuzzle = () => {
   const [colourToMove, setColourToMove] = useState<string>("");
   const [difficulty, setDifficulty] = useState<levels | null>(null);
 
+  // if maximum attempts reached, participants DNF
   useEffect(() => {
-    if (attempts >= 3) navigate("/unauthenticated");
+    if (attempts >= 3) navigate("/unauthenticated", {state: {time: "DNF - ran out of attempts"}});
   }, [attempts, navigate]);
+
+  // start the timer when the user selects a difficulty
+  useEffect(() => {
+    if (difficulty) startTimer();
+  }, [difficulty, startTimer]);
 
   const getRandomPuzzle = () => {
     const puzzles =
@@ -82,7 +89,9 @@ export const ChessPuzzle = () => {
       if (!move) return false;
 
       if (moveMade === puzzle?.Moves[1]) {
-        navigate("/authenticated");
+        const elapsedTime = stopTimer();
+        console.log(`Elapsed time: ${elapsedTime}ms`);
+        navigate("/authenticated", {state: {time: elapsedTime}});
         return true;
       }
     } catch (err) {
@@ -102,13 +111,8 @@ export const ChessPuzzle = () => {
 
   return (
     <div className="passwordScreen">
-      <Dropdown
-        options={["EASY", "MEDIUM", "HARD"]}
-        onChange={(value) => onDifficultySelect(value)}
-        placeholder={"Select a difficulty"}
-        className={"dropdown"}
-        arrowClosed={<span className="arrow-closed" />}
-        arrowOpen={<span className="arrow-open" />}
+      <CustomDropdown
+        onSelect={onDifficultySelect}
       />
       {difficulty ? (
         <>

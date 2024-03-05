@@ -17,7 +17,7 @@ const Timer = memo(({ resetFlag, duration=10_000 }: TimerProps) => {
   const [progress, setProgress] = useState<number>(PROGRESS_INITIAL);
 
   const stopFunction = useCallback(() => {
-    navigate("/unauthenticated");
+    navigate("/unauthenticated", {state: {time: "DNF - ran out of time"}});
   }, [navigate]);
 
   useEffect(() => {
