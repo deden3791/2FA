@@ -6,45 +6,39 @@ import mediumPuzzles from "../data/chess-puzzles-medium.json";
 import hardPuzzles from "../data/chess-puzzles-hard.json";
 import { useNavigate } from "react-router-dom";
 import Timer from "./Timer";
+import Dropdown from 'react-dropdown';
 
 interface puzzle {
   PuzzleId: string;
   FEN: string;
   Moves: string[];
-}
+};
 
 type levels = "EASY" | "MEDIUM" | "HARD";
 
-// --------- SET LEVEL HERE
+const NO_OF_ATTEMPTS = 3;
 
-const level: levels = "HARD";
-
-// --------- SET TIMER ON OR OFF HERE
-
-const timer = false;
-
-// ---------
 
 export const ChessPuzzle = () => {
   const navigate = useNavigate();
 
   const [resetFlag, setResetFlag] = useState<boolean>(false);
-
   const [puzzle, setPuzzle] = useState<puzzle | null>(null);
   const [game, setGame] = useState(new Chess());
   const [attempts, setAttempts] = useState(0);
   const [colourToMove, setColourToMove] = useState<string>("");
+  const [difficulty, setDifficulty] = useState<levels | null>(null);
 
   useEffect(() => {
     if (attempts >= 3) navigate("/unauthenticated");
-    getRandomPuzzle(level);
-  }, [attempts, navigate]);
+    getRandomPuzzle();
+  }, [attempts, navigate, difficulty]);
 
-  const getRandomPuzzle = (pickedLevel: levels) => {
+  const getRandomPuzzle = () => {
     const puzzles =
-      pickedLevel === "EASY"
+    difficulty === "EASY"
         ? easyPuzzles
-        : pickedLevel === "MEDIUM"
+        : difficulty === "MEDIUM"
           ? mediumPuzzles
           : hardPuzzles;
 
@@ -57,6 +51,7 @@ export const ChessPuzzle = () => {
   };
 
   useEffect(() => {
+    console.log("Correct Answer is: ", puzzle?.Moves[1])
     if (puzzle) {
       const firstMove = {
         from: puzzle.Moves[0].slice(0, 2),
@@ -91,33 +86,48 @@ export const ChessPuzzle = () => {
       console.log(err);
     } finally {
       setAttempts((prev) => prev + 1);
-      setResetFlag((prev) => !prev);
       return false;
     }
   };
 
+  const onDifficultySelect = (level: any): void => {
+    setDifficulty(level);
+    setResetFlag(!resetFlag);
+  };
+
   return (
     <div className="passwordScreen">
-      {colourToMove.length > 0 && colourToMove === "w" ? (
-        <label>White to Move</label>
-      ) : colourToMove === "b" ? (
-        <label>Black to Move</label>
-      ) : (
-        <label> </label>
-      )}
-      <div>
-        <Chessboard
-          boardWidth={600}
-          position={game.fen()}
-          onPieceDrop={onDrop}
-        />
-      </div>
+      <Dropdown
+        options={["EASY", "MEDIUM", "HARD"]}
+        onChange={(value) => onDifficultySelect(value)}
+        placeholder={"Select a difficulty"}
+        className={"dropdown"}
+        arrowClosed={<span className="arrow-closed" />}
+        arrowOpen={<span className="arrow-open" />}
+      />
+      {difficulty && (
+        <>
+        <h2>Get checkmate in 1 move</h2>
+        <h5>{NO_OF_ATTEMPTS - attempts} attempts left</h5>
+        {colourToMove.length > 0 && colourToMove === "w" ? (
+            <h5>White to Move</h5>
+          ) : colourToMove === "b" ? (
+            <h5>Black to Move</h5>
+          ) : (
+            <h5> </h5>
+          )}
+          <div>
+            <Chessboard
+              boardWidth={500}
+              position={game.fen()}
+              onPieceDrop={onDrop}
+            />
+          </div>
 
-      {timer && (
-        <Timer
-          stopFunction={() => setAttempts((prev) => prev + 1)}
-          resetFlag={resetFlag}
-        />
+          <Timer
+            resetFlag={resetFlag}
+          />
+        </>
       )}
     </div>
   );

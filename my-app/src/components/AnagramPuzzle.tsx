@@ -64,10 +64,6 @@ export const AnagramPuzzle = () => {
     };
   }, [startTimer, stopTimer, navigate]);
 
-  const stopFunction = useCallback(() => {
-    navigate("/unauthenticated");
-  }, [navigate]);
-
   useEffect(() => {
     console.log(words);
   }, []);
@@ -116,7 +112,7 @@ export const AnagramPuzzle = () => {
 
       <p>{message}</p>
 
-      <Timer stopFunction={stopFunction} />
+      <Timer />
     </div>
   );
 };
