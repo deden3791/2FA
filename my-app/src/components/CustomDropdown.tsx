@@ -8,7 +8,7 @@ export const CustomDropdown = ({onSelect}: CustomDropDownProps) => {
   return (
     <Dropdown
       options={["EASY", "MEDIUM", "HARD"]}
-      onChange={(value) => onSelect(value)}
+      onChange={(value) => onSelect(value.value)}
       placeholder={"Select a difficulty"}
       className={"dropdown"}
       arrowClosed={<span className="arrow-closed" />}

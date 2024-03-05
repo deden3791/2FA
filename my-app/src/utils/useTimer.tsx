@@ -11,10 +11,7 @@ export function useTimer() {
   };
 
   const startTimer = useCallback(() => {
-    if (startTimeRef.current === null) {
-      // Prevent restarting if already started
-      startTimeRef.current = Date.now();
-    }
+    startTimeRef.current = Date.now();
   }, []);
 
   const stopTimer = useCallback(() => {
