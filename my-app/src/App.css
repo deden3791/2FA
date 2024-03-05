@@ -70,6 +70,14 @@ button {
   -webkit-transform: rotate(-135deg);
 }
 
+.toggleContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 300px;
+  justify-content: space-between;
+}
+
 .progressBarContainer {
   width: 100%; /* Full width of the container */
   max-width: 600px; /* Max width can be the same as the chessboard for consistency */

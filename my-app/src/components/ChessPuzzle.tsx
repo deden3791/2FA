@@ -7,6 +7,8 @@ import hardPuzzles from "../data/chess-puzzles-hard.json";
 import { useNavigate } from "react-router-dom";
 import Timer from "./Timer";
 import Dropdown from 'react-dropdown';
+import { CustomToggleSwitch } from "./CustomToggleSwitch";
+import { useTimer } from "../utils/useTimer";
 
 interface puzzle {
   PuzzleId: string;
@@ -21,6 +23,8 @@ const NO_OF_ATTEMPTS = 3;
 
 export const ChessPuzzle = () => {
   const navigate = useNavigate();
+  const { isTimerOn, setIsTimerOn,
+    countdownDuration, updateCountdownDuration } = useTimer();
 
   const [resetFlag, setResetFlag] = useState<boolean>(false);
   const [puzzle, setPuzzle] = useState<puzzle | null>(null);
@@ -31,8 +35,7 @@ export const ChessPuzzle = () => {
 
   useEffect(() => {
     if (attempts >= 3) navigate("/unauthenticated");
-    getRandomPuzzle();
-  }, [attempts, navigate, difficulty]);
+  }, [attempts, navigate]);
 
   const getRandomPuzzle = () => {
     const puzzles =
@@ -86,6 +89,7 @@ export const ChessPuzzle = () => {
       console.log(err);
     } finally {
       setAttempts((prev) => prev + 1);
+      getRandomPuzzle();
       return false;
     }
   };
@@ -93,6 +97,7 @@ export const ChessPuzzle = () => {
   const onDifficultySelect = (level: any): void => {
     setDifficulty(level);
     setResetFlag(!resetFlag);
+    getRandomPuzzle();
   };
 
   return (
@@ -105,7 +110,7 @@ export const ChessPuzzle = () => {
         arrowClosed={<span className="arrow-closed" />}
         arrowOpen={<span className="arrow-open" />}
       />
-      {difficulty && (
+      {difficulty ? (
         <>
         <h2>Get checkmate in 1 move</h2>
         <h5>{NO_OF_ATTEMPTS - attempts} attempts left</h5>
@@ -118,16 +123,26 @@ export const ChessPuzzle = () => {
           )}
           <div>
             <Chessboard
-              boardWidth={500}
+              boardWidth={450}
               position={game.fen()}
               onPieceDrop={onDrop}
             />
           </div>
 
-          <Timer
-            resetFlag={resetFlag}
-          />
+          {isTimerOn && (
+            <Timer
+              resetFlag={resetFlag}
+              duration={countdownDuration}
+            />
+          )}
         </>
+      ) : (
+        <CustomToggleSwitch
+          isTimerOn={isTimerOn}
+          onToggle={setIsTimerOn}
+          containerStyle={"toggleContainer"}
+          onInput={updateCountdownDuration}
+        />
       )}
     </div>
   );

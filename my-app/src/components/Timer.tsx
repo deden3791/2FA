@@ -3,12 +3,18 @@ import { ProgressBar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 interface TimerProps {
+  duration?: number;
   resetFlag?: boolean;
 }
 
-const Timer = memo(({ resetFlag }: TimerProps) => {
+const PROGRESS_FINAL = 100;
+const PROGRESS_INITIAL = 0;
+const INCREMENT_AMOUNT = 2;
+const NO_OF_INCREMENTS = (PROGRESS_FINAL - PROGRESS_INITIAL) / INCREMENT_AMOUNT;
+
+const Timer = memo(({ resetFlag, duration=10_000 }: TimerProps) => {
   const navigate = useNavigate();
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState<number>(PROGRESS_INITIAL);
 
   const stopFunction = useCallback(() => {
     navigate("/unauthenticated");
@@ -19,21 +25,21 @@ const Timer = memo(({ resetFlag }: TimerProps) => {
   }, [resetFlag]);
 
   useEffect(() => {
-    const incrementAmount = 0.5;
+    const x: number = duration/NO_OF_INCREMENTS;
 
     const interval = setInterval(() => {
       setProgress((prevProgress) => {
-        const newProgress = prevProgress + incrementAmount;
+        const newProgress = prevProgress + INCREMENT_AMOUNT;
 
-        if (newProgress >= 100) {
+        if (newProgress >= PROGRESS_FINAL) {
           stopFunction();
           return 0;
         }
         return newProgress;
       });
-    }, 100);
+    }, x);
     return () => clearInterval(interval);
-  }, [stopFunction]);
+  }, [duration, stopFunction]);
 
   return (
     <div className="progressBarContainer">
