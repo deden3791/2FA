@@ -121,7 +121,7 @@ export const ChessPuzzle = () => {
       <CustomDropdown onSelect={onDifficultySelect} />
       {difficulty ? (
         <>
-          <h2>What is the best move in this position?</h2>
+          <h2>Find the mate in 1</h2>
           <h5>{NO_OF_ATTEMPTS - attempts} attempts left</h5>
           {colourToMove.length > 0 && colourToMove === "w" ? (
             <h5>White to Move</h5>

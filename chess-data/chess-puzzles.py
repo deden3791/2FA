@@ -11,7 +11,7 @@ def export_sample(df, difficulty):
 if __name__ == "__main__":
     df = load_puzzles()
 
-    puzzle_themes = ((df["Themes"].str.contains("advantage")) & (df["Themes"].str.contains("oneMove"))) | (df["Themes"].str.contains("mateIn1"))
+    puzzle_themes = df["Themes"].str.contains("mateIn1")
     
     easy_df = df[puzzle_themes & (df["Rating"] < 1000)]
     medium_df = df[puzzle_themes & (df["Rating"] >= 1000) & (df["Rating"] < 2000)]
