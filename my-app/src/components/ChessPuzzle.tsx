@@ -14,18 +14,22 @@ interface puzzle {
   PuzzleId: string;
   FEN: string;
   Moves: string[];
-};
+}
 
 type levels = "EASY" | "MEDIUM" | "HARD";
 
 const NO_OF_ATTEMPTS = 3;
 
-
 export const ChessPuzzle = () => {
   const navigate = useNavigate();
-  const { isTimerOn, setIsTimerOn,
-    countdownDuration, updateCountdownDuration,
-    startTimer, stopTimer } = useTimer();
+  const {
+    isTimerOn,
+    setIsTimerOn,
+    countdownDuration,
+    updateCountdownDuration,
+    startTimer,
+    stopTimer,
+  } = useTimer();
 
   const [resetFlag, setResetFlag] = useState<boolean>(false);
   const [puzzle, setPuzzle] = useState<puzzle | null>(null);
@@ -36,7 +40,10 @@ export const ChessPuzzle = () => {
 
   // if maximum attempts reached, participants DNF
   useEffect(() => {
-    if (attempts >= 3) navigate("/unauthenticated", {state: {time: "DNF - ran out of attempts"}});
+    if (attempts >= 3)
+      navigate("/unauthenticated", {
+        state: { time: "DNF - ran out of attempts" },
+      });
   }, [attempts, navigate]);
 
   // start the timer when the user selects a difficulty
@@ -46,11 +53,11 @@ export const ChessPuzzle = () => {
 
   const getRandomPuzzle = () => {
     const puzzles =
-    difficulty === "EASY"
+      difficulty === "EASY"
         ? easyPuzzles
         : difficulty === "MEDIUM"
-          ? mediumPuzzles
-          : hardPuzzles;
+        ? mediumPuzzles
+        : hardPuzzles;
 
     let chosenPuzzle = puzzles[Math.floor(Math.random() * puzzles.length)];
     let puzzleMoves = chosenPuzzle.Moves.split(" ");
@@ -61,7 +68,7 @@ export const ChessPuzzle = () => {
   };
 
   useEffect(() => {
-    console.log("Correct Answer is: ", puzzle?.Moves[1])
+    console.log("Correct Answer is: ", puzzle?.Moves[1]);
     if (puzzle) {
       const firstMove = {
         from: puzzle.Moves[0].slice(0, 2),
@@ -91,7 +98,7 @@ export const ChessPuzzle = () => {
       if (moveMade === puzzle?.Moves[1]) {
         const elapsedTime = stopTimer();
         console.log(`Elapsed time: ${elapsedTime}ms`);
-        navigate("/authenticated", {state: {time: elapsedTime}});
+        navigate("/authenticated", { state: { time: elapsedTime } });
         return true;
       }
     } catch (err) {
@@ -111,14 +118,12 @@ export const ChessPuzzle = () => {
 
   return (
     <div className="passwordScreen">
-      <CustomDropdown
-        onSelect={onDifficultySelect}
-      />
+      <CustomDropdown onSelect={onDifficultySelect} />
       {difficulty ? (
         <>
-        <h2>Get checkmate in 1 move</h2>
-        <h5>{NO_OF_ATTEMPTS - attempts} attempts left</h5>
-        {colourToMove.length > 0 && colourToMove === "w" ? (
+          <h2>Find the mate in 1</h2>
+          <h5>{NO_OF_ATTEMPTS - attempts} attempts left</h5>
+          {colourToMove.length > 0 && colourToMove === "w" ? (
             <h5>White to Move</h5>
           ) : colourToMove === "b" ? (
             <h5>Black to Move</h5>
@@ -134,10 +139,7 @@ export const ChessPuzzle = () => {
           </div>
 
           {isTimerOn && (
-            <Timer
-              resetFlag={resetFlag}
-              duration={countdownDuration}
-            />
+            <Timer resetFlag={resetFlag} duration={countdownDuration} />
           )}
         </>
       ) : (
