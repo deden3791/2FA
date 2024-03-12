@@ -6,6 +6,6 @@ puzzles:
 app:
 	cd my-app && npm start
 
-.PHONY: fmt
-fmt:
-	cd my-app && npx prettier -w .
+.PHONY: install
+install:
+	cd my-app && npm i
