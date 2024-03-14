@@ -7,7 +7,7 @@
 
 ## How To Run
 
-1. **Open Shell**: Open your command line interface and navigate to the folder containing the source code.
+1. **Open Shell**: Open your command line interface and navigate to the folder containing the source code `cd my-app`.
 
 2. **Install dependencies**: Run `make install` in your shell. This will install the required dependencies.
 
